@@ -1,15 +1,28 @@
-module.exports = function chatRules(io){
+const MessagesModel = require('../Models/MessagesModel')
+const InappropriateWordsSchema = require('../Models/InappropriateWordsModel')
+
+module.exports = async function chatRules(io){
     let hasinappropriatemessage = false
-    let inappropriatemessages = ['Foda', 'Cuzão']
+    const inappropriatemessagesDocument = await InappropriateWordsSchema.find({})
+    const inappropriatemessages = []
+
+    inappropriatemessagesDocument.forEach(element => {
+        inappropriatemessages.push(element.badWord)
+    });
 
     io.on('connection', socket => {
         console.log(`Socket connection id: ${socket.id}`)
 
     
-        socket.on('sendMessage', data => {
+        socket.on('sendMessage', async data => {
             //Armazenar a mensagem de cada usuário e verificar as palavras
             let messages = []
             messages.push(data)
+
+            await MessagesModel.create({
+                message: data.message
+            })
+            
             
             for(i = 0; i <= inappropriatemessages.length; i++){
                 let word = inappropriatemessages[i]
@@ -20,11 +33,9 @@ module.exports = function chatRules(io){
             
             if(hasinappropriatemessage){
                 socket.emit('blockMessage',hasinappropriatemessage)
-                console.log('true')
             }else {
                 socket.emit('blockMessage',hasinappropriatemessage)
                 socket.broadcast.emit('receivedMessage', data)
-                console.log(false)
             }
             
             hasinappropriatemessage = false;

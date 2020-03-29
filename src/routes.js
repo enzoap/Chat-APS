@@ -2,14 +2,21 @@ const express = require('express')
 const ChatController = require('./Controllers/ChatController')
 const SessionController = require('./Controllers/SessionController')
 const UserController = require('./Controllers/UserController')
+const InappropriateWordsController = require('./Controllers/InappropriateWordsController')
+const MessagesController = require('./Controllers/MessagesController')
 
 const routes = express.Router()
 
+routes.post('/', SessionController.signup)
+
 routes.get('/chat', ChatController.show)
 
-routes.post('/', SessionController.signup)
+routes.post('/badword', InappropriateWordsController.store)
+routes.get('/badword', InappropriateWordsController.index)
 
 routes.post('/user', UserController.create)
 routes.get('/users', UserController.index)
+
+routes.get('/messages', MessagesController.index)
 
 module.exports = routes

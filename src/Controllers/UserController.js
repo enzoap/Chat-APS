@@ -24,6 +24,10 @@ module.exports = {
             name,
             password
         })
+
+        if(user){
+            return res.status(200).json({sucess: 'Usuário criado com sucesso.'})
+        }
     },
 
     

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
+const UserSchema = require('./UserModel')
 
 const MessageSchema = new mongoose.Schema({
-    message: {
+   message: {
         type: String
     }
 })
