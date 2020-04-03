@@ -8,11 +8,12 @@ module.exports = {
         
             const user = await UserSchema.findOne({name})
             const comparePassword = await bcrypt.compare(password, user.password)
-
-            if(comparePassword){
+            
+            if(comparePassword && !user.admin){
                 return res.redirect('/chat')
             }
-            return res.json({Login: "Usuario ou senha incorreto"})
+            return res.json({Login: "Usuário ou senha incorreto"})
         
     }
+    
 }

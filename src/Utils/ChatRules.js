@@ -15,7 +15,7 @@ module.exports = async function chatRules(io){
 
     
         socket.on('sendMessage', async data => {
-            //Armazenar a mensagem de cada usuário e verificar as palavras
+            
             let messages = []
             messages.push(data)
 
