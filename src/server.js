@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const path = require('path')
 const mongoose = require('mongoose')
@@ -7,7 +8,8 @@ const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 const chatRules = require('./Utils/ChatRules')
 
-mongoose.connect("mongodb+srv://enzo:123@cluster0-v27vg.mongodb.net/chat?retryWrites=true&w=majority", {
+
+mongoose.connect(process.env.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
@@ -23,6 +25,10 @@ app.set('view engine', 'html')
 
 chatRules(io)
 
-server.listen(3000, () => {console.log('server on')})
+const port = process.env.PORT || 3000
+server.listen(port, function () {
+console.log(`Servidor executando em ${port}`)
+})
+
 
 
