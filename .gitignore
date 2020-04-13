@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 node_modules
-=======
 # Logs
 logs
 *.log
@@ -118,4 +116,3 @@ dist
 .pnp.*
 
 .gitpod.yml
->>>>>>> 9e78da416a598f6ca6417dde0bb7ae89813a7bdb
