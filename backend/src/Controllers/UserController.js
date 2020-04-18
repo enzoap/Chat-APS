@@ -15,7 +15,7 @@ module.exports = {
         const userExist = await UserModel.findOne({name})
 
         if(userExist){
-            return res.json({error: "Nome Indisponível"})
+            return res.json({message: "Nome Indisponível"})
         }
 
          password = await generateHash(password)
@@ -27,7 +27,7 @@ module.exports = {
         })
 
         if(user){
-            return res.status(200).json({sucess: 'Usuário criado com sucesso.'})
+            return res.status(200).json({message: 'Usuário criado com sucesso.'})
         }
     },
 
