@@ -7,7 +7,7 @@ const MessagesController = require('./Controllers/MessagesController')
 
 const routes = express.Router()
 
-routes.post('/', SessionController.signup)
+routes.post('/login', SessionController.signup)
 
 routes.get('/chat', ChatController.show)
 
