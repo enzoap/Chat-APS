@@ -7,7 +7,7 @@ module.exports = {
         const wordExist = await InappropriateWordsModel.findOne({badWord})
 
         if(wordExist){
-            return res.json({error: 'Essa palavra já foi adicionada.'})
+            return res.json({message: 'Essa palavra já foi adicionada.'})
         }
 
         const response = await InappropriateWordsModel.create({
@@ -15,7 +15,7 @@ module.exports = {
         })
 
         if(response) {
-            return res.status(203).json({sucess: 'Palavra adicionada com sucesso!'})
+            return res.status(203).json({message: 'Palavra adicionada com sucesso!'})
         }
     },
 
