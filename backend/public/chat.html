@@ -13,7 +13,7 @@
 </head>
 <body>
     <form id="chat">
-        <input readonly="true" id="username" name="username"> 
+        <input readonly="false" id="username" name="username"> 
         <div class="messages"></div>  
         <input type="text" id="message" name="message" placeholder="Digite sua mensagem">
         <button type="submit">Enviar</button>
@@ -25,15 +25,14 @@
             author: 'Servidor'
         }
         let messageObject
-        let author = localStorage.getItem('author')
+        let author = 'enzo'
 
-        $('#username').val(author) 
+        $('#username').val('enzo') 
 
         let message
-        let url = window.location.href
-        // let url = 'http://localhost:3000/'
+        let url = 'http://localhost:3333/'
         
-        let socket = io('https://chat-unip.herokuapp.com/')
+        let socket = io(url)
 
         function renderMessage(message){
             $('.messages').append('<div class="message"><strong>'+ message.author +'<strong>: '+ message.message +'</div>')
@@ -51,6 +50,7 @@
 
 
         socket.on('receivedMessage', function(message){
+                    console.log(message)
                     renderMessage(message)
                  })
 

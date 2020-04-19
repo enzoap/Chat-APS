@@ -18,7 +18,7 @@ module.exports = async function chatRules(io){
             
             let messages = []
             messages.push(data)
-
+            
             await MessagesModel.create({
                 message: data.message
             })
@@ -36,6 +36,7 @@ module.exports = async function chatRules(io){
             }else {
                 socket.emit('blockMessage',hasinappropriatemessage)
                 socket.broadcast.emit('receivedMessage', data)
+                console.log(data)
             }
             
             hasinappropriatemessage = false;

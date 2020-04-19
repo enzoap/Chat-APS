@@ -19,7 +19,7 @@ export default function Login(){
 
        try {
         const response = await api.post('login',data)
-        if(response){
+        if(response.data.admin){
             localStorage.setItem('name', user)
             localStorage.setItem('admin', true)
             history.push('/admin')
@@ -47,6 +47,7 @@ export default function Login(){
                 onChange={e => setUser(e.target.value)}  
                 />
                 <input 
+                type="password"
                 placeholder="Senha"
                 value={password}
                 onChange={e => setPassword(e.target.value)}

@@ -27,7 +27,7 @@ app.set('view engine', 'html')
 
 chatRules(io)
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3333
 server.listen(port, function () {
 console.log(`Servidor executando em ${port}`)
 })
