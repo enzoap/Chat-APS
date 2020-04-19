@@ -9,7 +9,7 @@ export default function Chat() {
     const name = localStorage.getItem('name')
     let messageObject
     const history = useHistory()
-    const socket = io('http://localhost:3333/')
+    const socket = io('https://chat-unip.herokuapp.com/')
     const blockmessage = {
         message: 'Mensagem inadequada removida',
         author: 'Servidor'
