@@ -9,7 +9,7 @@ module.exports = {
     async delete(req, res){
         const admin = req.headers.authorization;
 
-        if(!admin) return res.status(401).json({error: 'Operação não permitida.'})
+        if(!admin) return res.status(401).json({message: 'Operação não permitida.'})
         
         const {deletedCount} = await MessagesModel.deleteMany()
         return res.json({message: `Foi deletado ${deletedCount} mensagens.`})
