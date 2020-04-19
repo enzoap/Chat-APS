@@ -27,6 +27,7 @@ export default function Register(){
             alert('Erro no cadastro, tente novamente.')
         }
     }
+    
     return (
         <div className="register-container">
         <div className="content">
