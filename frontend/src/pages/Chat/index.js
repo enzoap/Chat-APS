@@ -1,15 +1,16 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import {Link,useHistory} from 'react-router-dom'
 import {FiPower} from 'react-icons/fi'
 import io from 'socket.io-client'
 import './styles.css'
+import { render } from '@testing-library/react'
 
 export default function Chat() {
+    const socket = io('https://chat-unip.herokuapp.com/')
     const [message,setMessage] = useState('')
     const name = localStorage.getItem('name')
     let messageObject
     const history = useHistory()
-    const socket = io('https://chat-unip.herokuapp.com/')
     const blockmessage = {
         message: 'Mensagem inadequada removida',
         author: 'Servidor'
@@ -35,16 +36,18 @@ export default function Chat() {
         document.getElementsByClassName('messages')[0].appendChild(divMessage)
     }
 
+    useEffect(() => {
+        socket.on('receivedMessage', function(message){
+            renderMessage(message)
+        })
+    },[])
     
 
     socket.on('blockMessage', function (blockedMessage){
         if(blockedMessage){
             renderMessage(blockmessage)
+            console.log(blockedMessage)
         }
-        else {
-            renderMessage(messageObject)
-        }
-        
     })
 
     function logout(){
