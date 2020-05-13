@@ -3,13 +3,16 @@ const InappropriateWordsSchema = require('../Models/InappropriateWordsModel')
 
 module.exports = async function chatRules(io){
     let hasinappropriatemessage = false
-    const inappropriatemessagesDocument = await InappropriateWordsSchema.find({})
-    const inappropriatemessages = []
-
-    inappropriatemessagesDocument.forEach(element => {
-        inappropriatemessages.push(element.badWord)
-    });
-
+    let inappropriatemessagesDocument = await InappropriateWordsSchema.find({})
+    let inappropriatemessages = []
+    async function getInapropriateMessages(){
+        inappropriatemessagesDocument = await InappropriateWordsSchema.find({})
+        inappropriatemessagesDocument.forEach(element => {
+            inappropriatemessages.push(element.badWord)
+        });
+    }
+    getInapropriateMessages()
+    setInterval(getInapropriateMessages, 3000)
     io.on('connection', socket => {
         console.log(`Socket connection id: ${socket.id}`)
 
@@ -36,7 +39,6 @@ module.exports = async function chatRules(io){
             }else {
                 socket.emit('blockMessage',hasinappropriatemessage)
                 socket.broadcast.emit('receivedMessage', data)
-                console.log(data)
             }
             
             hasinappropriatemessage = false;
